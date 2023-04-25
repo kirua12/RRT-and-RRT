@@ -1,10 +1,10 @@
 #include "Node.h"
 
-Node::Node(cv::Point position)
+Node::Node(cv::Point position,int index)
 {
 	m_position = position;
-	cost = 0;
-	
+	m_cost = 0;
+	m_current_index = index;
 
 
 }
@@ -30,10 +30,19 @@ void Node::setNextNodeIndex(int next)
 
 }
 
+void Node::removeNextIndex(int index)
+{
+	for (int i = 0;i < m_next_node_index.size();i++) {
+		if(m_next_node_index.at(i)== index)
+			m_next_node_index.erase(m_next_node_index.begin() + i);
+	}
+
+}
+
 void Node::setCost(Node pre)
 {
 
-	cost = euclideanDistance(pre.getPostion(), m_position)+pre.getCost();
+	m_cost = euclideanDistance(pre.getPostion(), m_position)+pre.getCost();
 }
 
 
@@ -54,9 +63,14 @@ cv::Point Node::getPostion()
 	return m_position;
 }
 
+int Node::GetIndex()
+{
+	return m_current_index;
+}
+
 double Node::getCost()
 {
-	return cost;
+	return m_cost;
 }
 
 

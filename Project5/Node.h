@@ -18,14 +18,18 @@ class Node
 	//현채 위치
 	cv::Point m_position;
 
-	double cost;
+	int m_current_index;
+	double m_cost;
 
 public:
 
-	Node(cv::Point position);
+	Node(cv::Point position, int index);
 	Node() {};
-	double euclideanDistance(cv::Point a, cv::Point b);
 
+	// 두 포인트간의 거리를 계산하는 함수 -> cost 계산시 사용
+	double euclideanDistance(cv::Point a, cv::Point b);
+	//rrt star시 다음 노드들을 제거해주는 함수
+	void removeNextIndex(int index);
 
 	//set 함수
 	void setPreNodeIndex(int pre);
@@ -34,6 +38,7 @@ public:
 
 	//get 함수
 	std::vector<int> getNextNodeIndex();
+	int GetIndex();
 	int getPretNodeIndex();
 	cv::Point getPostion();
 	double getCost();

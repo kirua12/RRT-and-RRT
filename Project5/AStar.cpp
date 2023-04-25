@@ -2,16 +2,11 @@
 
 std::vector<Node> AStar::routeSearch(std::vector<Node> nodes, cv::Mat maze)
 {
-
-
-
-
     //시작 지점의 인덱스 번호
     int index = 1;
 
     std::vector<int> closed;
     std::vector<int> open;
-
     
     Node goal = nodes.at(0);
 
@@ -31,18 +26,12 @@ std::vector<Node> AStar::routeSearch(std::vector<Node> nodes, cv::Mat maze)
             continue;
         }
 
-        
-
         minCostNode(&index, next_node_index, maze, goal, nodes);
         addClosedNode(index, &closed, next_node_index);
         
-        
-
-
     }
 
     std::vector<Node> route = routeAdd(index, nodes);
-
 
     return route;
 }
@@ -61,7 +50,6 @@ double AStar::caculateHuristic(Node current, Node goal, cv::Mat maze)
 
 double AStar::obstacleCalculate(cv::Point x1, cv::Point x2, cv::Mat maze)
 {
-
     //직선의 방정식 ax+b일떄를 담당하는 함수
     double a;
     double b;
@@ -85,7 +73,6 @@ double AStar::euclideanDistance(cv::Point a, cv::Point b)
 {
     double differ_x = a.x - b.x;
     double differ_y = a.y - b.y;
-
 
     return std::sqrt(std::pow(differ_x, 2) + std::pow(differ_y, 2));
 }
@@ -145,7 +132,6 @@ void AStar::addClosedNode(int index, std::vector<int>* closed, std::vector<int> 
 
 bool AStar::checkGoalNode(std::vector<int> next_node_index)
 {
-
     //다음 노드 index들에 목표 노드 index가 존재하면 true를 리턴
     for (int i = 0; i < next_node_index.size();i++)
         if (next_node_index.at(i) == 0) return true;
@@ -156,10 +142,8 @@ std::vector<Node> AStar::routeAdd(int index, std::vector<Node> nodes)
 {
     std::vector<Node> route;
     
-    
     while (1) {
-
-        
+               
         route.push_back(nodes.at(index));
         if (index == 1)
             break;
